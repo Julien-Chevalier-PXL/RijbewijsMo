@@ -1,0 +1,16 @@
+{
+  "name":"Theoretische rijexamen",
+  "short_name":"Rijbewijs",
+  "display": "standalone",
+  "description": "Slaag van de 1ste X op je theoretische rijexamen.",
+  "icons":[
+  {
+    "src": "afb/icon.jpg",
+    "type":"image/jpg",
+    "size":"128x128"
+  }
+
+
+],
+  "start_url":"index.html?launvher=true"
+}
