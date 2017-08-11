@@ -20,6 +20,7 @@ var seconds = 5;
 var d = new Date();
 var r = 0;
 var antwoord;
+var fouten = new Array();
 
 function random_vraag() {
     
@@ -36,9 +37,9 @@ function random_vraag() {
     return r;
 }
 
-
+// Set img source on page
 function chane_image(questionIndex) {
-    document.getElementById('slideShow').src = (questions[questionIndex].afbeelding).toUpperCase();
+    document.getElementById('slideShow').src = "Afbeeldingen/" + (questions[questionIndex].afbeelding).toUpperCase();
 
 }
 
@@ -96,6 +97,15 @@ function onclick_q()
     }
 }
 
+// region Timer
+function Timer() {
+    //alert(questionEl.innerHTML);
+
+    var t = d.getTime();
+
+    seconds = t + (total_seconds * 1000);
+    CheckTime();
+}
 
 async function CheckTime() {
 
@@ -121,28 +131,17 @@ async function CheckTime() {
 
 
             tijd.innerHTML = 'Tijd: ' + Math.ceil((seconds - d.getTime()) / 1000) + ' seconden';
-            await sleep(1000);
+            //await sleep(1000);
             setTimeout(CheckTime, 1000);
         }
         // setTimeout("CheckTime()",1000);
 	}
-
-
-
- function Timer() {
-    //alert(questionEl.innerHTML);
-
-    var t = d.getTime();
-
-    seconds = t + (total_seconds * 1000);
-    CheckTime();
-}
+// endregion
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 
 }
-
 
 loadQuestion(currentQuestion);
 Timer();
@@ -167,6 +166,7 @@ function rapport()
             };
             //alert(ans);
             var juist = 0;
+            var foutIndex = 0;
             container.style.display ='none';
             resultCont.style.display ='';
 
@@ -174,10 +174,12 @@ function rapport()
                 if (vragen[index][1] === ans[rand[index]].antwoord)
                 {
                     juist++;
+                }else{
+                    fouten[foutIndex] = index;
                 }
             }
             resultCont.innerHTML = "je hebt " + juist + " van de " + " 50 "+ " vragen juist!";
-
+            errorsToHtmlString(fouten);
         },
         error: function(xml, error) {
             console.log(error);
@@ -186,7 +188,14 @@ function rapport()
 
 }
 
+function errorsToHtmlString(fountenIndexen)
+{
+    for(var index = 0; index < fountenIndexen.length; index++){
 
+    }
+}
+
+//region FACEBOOK
 //shareButtonFB
 function post() {
     FB.api('/me','GET', {field: 'first_name,last_name,name,id'}, function (response) {
@@ -201,3 +210,4 @@ function shareLink()
         document.getElementById('status').innerHTML = response.id;
     });
 }
+//endregion
