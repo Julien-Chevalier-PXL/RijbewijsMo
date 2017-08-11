@@ -8,18 +8,9 @@
 
 session_start();
 
-//connect to database
-//$db=mysqli_connect("localhost","id993722_mohamedbouzouf","rijbewijs","id993722_mi4rijbewijs");
-$db=mysqli_connect("localhost","root","","mi4rijbewijs");
+include_once 'DbConnect.php';
 
-if($db)
-{
-    //echo" We are connected ";
-}
-else
-{
-    die("Connection failed . Reason: " .mysqli_connect_error());
-}
+$db = getDb();
 
 if(isset($_SESSION['message']))
 {
@@ -98,7 +89,7 @@ echo '<script>var questions = ['. implode(",",$js_array) .'];</script>';
 <br/>
 <br/>
         <div id='vraag' class='question'>test</div>
-        <img style="width: 100%" src="Afbeeldingen/Vragen/1.JPG" id="slideShow" name="slideShow" alt="images" width="auto" height="auto"/>
+        <img src="Afbeeldingen/Vragen/1.JPG" id="slideShow" name="slideShow" alt="images" width="250" height="250"/>
 
         </br>
         <label class="option"> <input type="radio" name="option" value="1"/> <span id="opt1"></span> </label>
