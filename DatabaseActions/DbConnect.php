@@ -16,4 +16,3 @@ function getDb(){
         die("Connection failed . Reason: " .mysqli_connect_error());
     }
 }
-?>
