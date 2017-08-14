@@ -97,7 +97,7 @@ if (isset($_SESSION['message'])) {
     </div>
 
     <div id="result" class="container result" style="display:none;">
-
+        <label id="cijfer"></label>
     </div>
     <?php echo '<script>var questions = ['. implode(",", getVragen($db)) .'];</script>'; ?>
     <script>

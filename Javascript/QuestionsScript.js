@@ -75,6 +75,7 @@ function generateRapport() {
             showGoodAnswer(q, userAnswer);
         }
     }
+    $("#cijfer").html("Je hebt " + juisteAntwoorden + " van de " + AANTAL_VRAGEN + " vragen juist!");
 }
 
 function showGoodAnswer(question, userAnswer) {
