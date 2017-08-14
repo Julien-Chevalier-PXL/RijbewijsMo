@@ -20,6 +20,7 @@ var seconds = 5;
 var d = new Date();
 var r = 0;
 var antwoord;
+var fouten = new Array();
 
 function random_vraag() {
     
@@ -36,14 +37,12 @@ function random_vraag() {
     return r;
 }
 
-
+// Set img source on page
 function chane_image(questionIndex) {
-    document.getElementById('slideShow').src = (questions[questionIndex].afbeelding).toUpperCase();
-
+    document.getElementById('slideShow').src = "Afbeeldingen/" + (questions[questionIndex].afbeelding).toUpperCase();
 }
 
 function loadQuestion(questionIndex) {
-    
     var qr = random_vraag();
     var q = questions [qr];
 
@@ -59,10 +58,9 @@ function loadQuestion(questionIndex) {
 
 	chane_image(qr);
     currentQuestion++;
-};
+}
 
 function loadNextQuestion() {
-    
     var selectedOption = document.querySelector('input[type=radio]:checked');
 
     if (selectedOption !== null)
@@ -96,6 +94,15 @@ function onclick_q()
     }
 }
 
+// region Timer
+function Timer() {
+    //alert(questionEl.innerHTML);
+
+    var t = d.getTime();
+
+    seconds = t + (total_seconds * 1000);
+    CheckTime();
+}
 
 async function CheckTime() {
 
@@ -126,23 +133,12 @@ async function CheckTime() {
         }
         // setTimeout("CheckTime()",1000);
 	}
-
-
-
- function Timer() {
-    //alert(questionEl.innerHTML);
-
-    var t = d.getTime();
-
-    seconds = t + (total_seconds * 1000);
-    CheckTime();
-}
+// endregion
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 
 }
-
 
 loadQuestion(currentQuestion);
 Timer();
@@ -167,6 +163,7 @@ function rapport()
             };
             //alert(ans);
             var juist = 0;
+            var foutIndex = 0;
             container.style.display ='none';
             resultCont.style.display ='';
 
@@ -174,10 +171,12 @@ function rapport()
                 if (vragen[index][1] === ans[rand[index]].antwoord)
                 {
                     juist++;
+                }else{
+                    fouten[foutIndex] = index;
                 }
             }
             resultCont.innerHTML = "je hebt " + juist + " van de " + " 50 "+ " vragen juist!";
-
+            errorsToHtmlString(fouten);
         },
         error: function(xml, error) {
             console.log(error);
@@ -186,7 +185,15 @@ function rapport()
 
 }
 
+function errorsToHtmlString(fountenIndexen)
+{
+    for(var index = 0; index < fountenIndexen.length; index++){
+        resultCont.innerHTML = "<div id='vraag' class='question'>" + vragen[index][1] +"</div>" +
+            "<img src=\"Afbeeldingen/Vragen/1.JPG\" id=\"slideShow\" name=\"slideShow\" alt=\"images\" width=\"250\" height=\"250\"/>";
+    }
+}
 
+//region FACEBOOK
 //shareButtonFB
 function post() {
     FB.api('/me','GET', {field: 'first_name,last_name,name,id'}, function (response) {
@@ -201,3 +208,4 @@ function shareLink()
         document.getElementById('status').innerHTML = response.id;
     });
 }
+//endregion
