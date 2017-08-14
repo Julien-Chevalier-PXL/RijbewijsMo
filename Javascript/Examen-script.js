@@ -40,11 +40,9 @@ function random_vraag() {
 // Set img source on page
 function chane_image(questionIndex) {
     document.getElementById('slideShow').src = "Afbeeldingen/" + (questions[questionIndex].afbeelding).toUpperCase();
-
 }
 
 function loadQuestion(questionIndex) {
-    
     var qr = random_vraag();
     var q = questions [qr];
 
@@ -60,10 +58,9 @@ function loadQuestion(questionIndex) {
 
 	chane_image(qr);
     currentQuestion++;
-};
+}
 
 function loadNextQuestion() {
-    
     var selectedOption = document.querySelector('input[type=radio]:checked');
 
     if (selectedOption !== null)
@@ -131,7 +128,7 @@ async function CheckTime() {
 
 
             tijd.innerHTML = 'Tijd: ' + Math.ceil((seconds - d.getTime()) / 1000) + ' seconden';
-            //await sleep(1000);
+            await sleep(1000);
             setTimeout(CheckTime, 1000);
         }
         // setTimeout("CheckTime()",1000);
@@ -191,7 +188,8 @@ function rapport()
 function errorsToHtmlString(fountenIndexen)
 {
     for(var index = 0; index < fountenIndexen.length; index++){
-
+        resultCont.innerHTML = "<div id='vraag' class='question'>" + vragen[index][1] +"</div>" +
+            "<img src=\"Afbeeldingen/Vragen/1.JPG\" id=\"slideShow\" name=\"slideShow\" alt=\"images\" width=\"250\" height=\"250\"/>";
     }
 }
 

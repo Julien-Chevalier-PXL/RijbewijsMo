@@ -2,7 +2,7 @@
 function getVragen($db)
 {
     mysqli_query($db,'SET CHARACTER SET utf8');
-    $sql = "SELECT id,vraag,afbeelding,optie1,optie2,optie3,uitleg FROM quizscript";
+    $sql = "SELECT id,vraag,afbeelding,optie1,optie2,optie3,antwoord,uitleg FROM quizscript";
     $result = mysqli_query($db, $sql);
     if($result){
         $js_array = array();
