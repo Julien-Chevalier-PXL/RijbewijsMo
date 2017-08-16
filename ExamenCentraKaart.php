@@ -1,3 +1,11 @@
+<?php
+
+include 'DatabaseActions/DbConnect.php';
+include 'DatabaseActions/ExamencentraRepository.php';
+
+$db=getDb();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,11 +13,13 @@
     <title>ExamenCentraKaartVL</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="manifest"href="manifest.json"/>
-    <script type="text/javascript" src="Javascript/jquery.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTZea67jn4YSPIGu0dNTHRyB1jnvo1Q00&callback=getLocation"></script>
+
     <style>
         #floating-panel {
             position: relative;
@@ -24,7 +34,6 @@
             line-height: 30px;
 
         }
-
     </style>
 </head>
 <body>
@@ -46,7 +55,6 @@
 
     <!-- Menu icon to open sidebar -->
     <span class="w3-button w3-top w3-white w3-xxlarge w3-text-grey w3-hover-text-black" style="width:auto;right:0;" onclick="openNav()"><i class="fa fa-bars"></i></span>
-
 <div id="floating-panel">
     <b>Manier van reizen: </b>
     <select id="mode">
@@ -58,23 +66,7 @@
 </div>
 <div id="googleMap" style="width:100%;height:800px;"></div>
 
-
-<script type="text/javascript" src="Javascript/jquery.js"></script>
-<script>
-    // Open and close sidebar
-    function openNav() {
-        document.getElementById("mySidebar").style.width = "60%";
-        document.getElementById("mySidebar").style.display = "block";
-    }
-
-    function closeNav() {
-        document.getElementById("mySidebar").style.display = "none";
-    }
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
-
-
-
+<?php echo '<script>var examencentras = ['. implode(",", json_encode(getExamenCentras($db))) .'];</script>'; ?>
 <script>
     var myLatLng;
 
@@ -89,8 +81,7 @@
         };
         var mapProp = {
             zoom: 15,
-            mapTypeId: 'roadmap',
-
+            mapTypeId: 'roadmap'
         };
         var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 
@@ -111,7 +102,6 @@
             title: 'My location'
         });
         var markers = [
-
             ['Examencentum Alken', 50.88838, 5.301410000000033],
             ['Examencentrum Roeselare', 50.9683971, 3.1201062000000093],
 
@@ -126,10 +116,8 @@
             ['Examencentrum Oostende', 51.20850220000001, 2.9675234000000046],
             ['Examencentrum Sint-Denijs-Westrem', 51.0325072, 3.6894585000000006],
             ['Examencentrum Deurne', 51.2372524, 4.468929399999979],
-            ['Huidige locatie', latitude, longitude],
-        ]
-
-
+            ['Huidige locatie', latitude, longitude]
+        ];
 
         // Display
         var infoWindow = new google.maps.InfoWindow(),
@@ -154,7 +142,6 @@
             })(marker, i));
 
             marker.addListener('click', function() {
-
                 directionsService.route({
                     // origin: document.getElementById('start').value,
                     origin:myLatLng,
@@ -162,7 +149,6 @@
                         lat: latit,
                         lng: longit
                     },
-
                     travelMode: 'DRIVING'
                 }, function(response, status) {
                     if (status === 'OK') {
@@ -171,9 +157,7 @@
                         window.alert('Directions request failed due to ' + status);
                     }
                 });
-
             });
-
             map.fitBounds(bounds);
         }
     }
@@ -208,7 +192,17 @@
     }
 </script>
 
-<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTZea67jn4YSPIGu0dNTHRyB1jnvo1Q00&callback=getLocation"></script>
+<script>
+    // Open and close sidebar
+    function openNav() {
+        document.getElementById("mySidebar").style.width = "60%";
+        document.getElementById("mySidebar").style.display = "block";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidebar").style.display = "none";
+    }
+</script>
 
 </body>
 </html>
