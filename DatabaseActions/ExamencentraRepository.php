@@ -2,7 +2,7 @@
 function getExamenCentras($db)
 {
     mysqli_query($db,'SET CHARACTER SET utf8');
-    $sql = "SELECT id, adres, postcode, plaats, tel, openingsuren FROM centravlaanderen";
+    $sql = "SELECT id, adres, postcode, plaats, tel, openingsuren FROM centravlaanderen ORDER BY id";
     $result = mysqli_query($db, $sql);
     if($result){
         $js_array = array();

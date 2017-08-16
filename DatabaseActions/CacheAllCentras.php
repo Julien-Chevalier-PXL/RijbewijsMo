@@ -33,7 +33,7 @@ require 'ExamencentraRepository.php';
 <?php echo '<script>var examencentras = [' . implode(",", getExamenCentrasOrderById(getDb())) . '];</script>'; ?>
 <script>
     var index = 0;
-    var centrasPos = [];
+    var centraPos = [];
     var aantalGelukt;
 
     $(document).ready(function () {
@@ -45,7 +45,7 @@ require 'ExamencentraRepository.php';
             type: 'post',
             cache: false,
             url: './InsertCentraToCache.php',
-            data: {centrasPos: centrasPos},
+            data: {centrasPos: centraPos},
             success: function (response) {
                 alert("Succes !");
             },
@@ -72,7 +72,7 @@ require 'ExamencentraRepository.php';
         geocoder.geocode({'address': address}, function (results, status) {
             if (status === 'OK') {
                 var position = results[0].geometry.location;
-                centrasPos.push([centraId, position.lat(), position.lng()]);
+                centraPos.push([centraId, position.lat(), position.lng()]);
                 aantalGelukt++;
             } else {
                 //alert('Address: ' + address +

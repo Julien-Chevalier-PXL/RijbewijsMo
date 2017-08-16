@@ -15,8 +15,8 @@ $db = getDb();
     <link rel="manifest" href="manifest.json"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <style>
-        /* Always set the map height explicitly to define the size of the div
-         * element that contains the map. */
+        /* Always set the myMap height explicitly to define the size of the div
+         * element that contains the myMap. */
         #map {
             height: 75%;
             width: 75%;
@@ -32,19 +32,28 @@ $db = getDb();
 </head>
 <body>
 <div id="map"></div>
-
 <?php echo '<script>var examencentras = [' . implode(",", getExamenCentras($db)) . '];</script>'; ?>
 <?php echo '<script>var examencentrasCached = [' . implode(",", getCachedExamenCentras($db)) . '];</script>'; ?>
 <script>
+    $(document).ready(function () {
+        $("#btn").click(function () {
+            alert(gelukt + "/" + examencentras.length);
+        });
+    });
+
+    var gelukt = 0;
+    var myMap;
+
     function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
+        myMap = new google.maps.Map(document.getElementById('map'), {
             zoom: 8
         });
 
         var geocoder = new google.maps.Geocoder();
-/*
+
         if (examencentras.length > examencentrasCached.length) {
-            examencentras.forEach(function (t) {
+            geocodeNonCachedExamencentras(examencentras, geocoder, myMap);
+            /*examencentras.forEach(function (t) {
                 var contained = false;
                 for(var ecIndex = 0; ecIndex < examencentrasCached.length; ecIndex++){
                     if(examencentrasCached[ecIndex][0]===t.id){
@@ -53,63 +62,110 @@ $db = getDb();
                     }
                 }
                 if(contained===false){
-                    geocodeAddress(t.address, geocoder, map);
+                    geocodeAddress(t.address, geocoder, myMap);
                 }
-            });
-        }*/
-        setCachedLocationsMarkers(examencentrasCached, map);
-        //getLocation(map);
+            });*/
+        }
+        setCachedLocationsMarkers(examencentrasCached, myMap);
+        getLocation(myMap);
     }
 
-    function setCachedLocationsMarkers(examencentras, resultsMap){
+    function setCachedLocationsMarkers(examencentras, resultsMap) {
+        for (var index = 0; index < examencentras.length; index++) {
+            centra = examencentras[index];
+            setMarker(centra);
+        }
+    }
+
+    function geocodeNonCachedExamencentras(examencentras, geocoder, resultsMap) {
+        for (var index = 0; index < examencentras.length; index++) { // foreach werkt niet, don't know why
+            var examencentra = examencentras[index];
+            geocodeAddress(examencentra, geocoder, resultsMap);
+        }
+    }
+
+    function geocodeAddress(examencentra, geocoder, resultsMap) {
+        var completeAddress = examencentra.adres + ", " + examencentra.postcode;
+        geocoder.geocode({'address': completeAddress}, function (results, status) {
+            if (status === 'OK') {
+                gelukt++;
+                examencentra["location"] = results[0].geometry.location;
+                cacheNewLocation(examencentra, results[0].geometry.location);
+                setMarker(examencentra);
+            } else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+                setTimeout(function () {
+                    geocodeAddress(examencentra, geocoder, resultsMap);
+                }, 500);
+            } else {
+                alert("Status: " + status);
+            }
+        });
+    }
+
+    function cacheNewLocation(examencentra, location) {
+        var centraPos = [
+            examencentra.id,
+            location.lat(),
+            location.lng()
+            ];
+        $.ajax({
+            type: 'post',
+            cache: false,
+            url: './DatabaseActions/InsertCentraToCache.php',
+            data: {centraPos: centraPos},
+            success: function (response) {
+                console.log("Location has been succesfully cached !");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+    }
+
+    function setMarker(centra) {
         var iconBase = './Afbeeldingen/Logo/';
         var image = {
             url: iconBase + 'centra_logo.png',
             scaledSize: new google.maps.Size(20, 25)
         };
 
-        for(var index = 0; index < examencentras.length; index++){
-            centra = examencentras[index];
-            //alert(centra.latitude + ", " + centra.longitude);
-            var pos = {
+        var contentString = '<div id="content">' +
+            '<div id="siteNotice">' +
+            '</div>' +
+            '<h1 id="firstHeading" class="firstHeading">Examen centrum ' + centra.plaats + '</h1>' +
+            '<div id="bodyContent">' +
+            '<p>' + centra.adres + ' - ' + centra.postcode + ' ' + centra.plaats + ' </p>' +
+            '<p>Telefoon: ' + centra.tel + '</p>' +
+            '<p>Site: <a href="' + centra.openingsuren + '">' + centra.openingsuren + '</a></p>' +
+            '</div>' +
+            '</div>';
+
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+
+        var pos = centra.location;
+        if (typeof pos === "undefined") {
+            pos = {
                 lat: parseFloat(centra.latitude),
                 lng: parseFloat(centra.longitude)
             };
-            var marker = new google.maps.Marker({
-                map: resultsMap,
-                position: pos,
-                icon: image
-            });
-            resultsMap.setCenter(pos);
         }
 
-    }
-
-    function geocodeNonCachedExamencentras(examencentras, geocoder, resultsMap) {
-        for (var index = 0; index < examencentras.length; index++) { // foreach werkt niet, don't know why
-            var examencentra = examencentras[index];
-            if (geocodeAddress(examencentra.adres, geocoder, resultsMap)) {
-                setTimeout(function () {
-                    index--;
-                }, 1000);
-            }
-        }
-    }
-
-    function geocodeAddress(address, geocoder, resultsMap) {
-        geocoder.geocode({'address': address}, function (results, status) {
-            if (status === 'OK') {
-                var marker = new google.maps.Marker({
-                    map: resultsMap,
-                    position: results[0].geometry.location
-                });
-            } else {
-                alert('Address: ' + address +
-                    '\nGeocode was not successful for the following reason: ' + status);
-                setTimeout(geocodeAddress, 2000);
-            }
+        var marker = new google.maps.Marker({
+            map: myMap,
+            position: pos,
+            icon: image
         });
+        google.maps.event.addListener(marker, 'click', (function (marker, contentString, infowindow) {
+            return function () {
+                infowindow.setContent(contentString);
+                infowindow.open(myMap, marker);
+            };
+        })(marker, contentString, infowindow));
     }
+
+    // region user's location
 
     function getLocation(map) {
         if (navigator.geolocation) {
@@ -138,6 +194,8 @@ $db = getDb();
             'Error: The Geolocation service failed.' :
             'Error: Your browser doesn\'t support geolocation.');
     }
+
+    // endregion
 </script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTZea67jn4YSPIGu0dNTHRyB1jnvo1Q00&callback=initMap">
