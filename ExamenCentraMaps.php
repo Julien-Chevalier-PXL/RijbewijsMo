@@ -13,6 +13,7 @@ $db = getDb();
     <title>ExamenCentraKaartVL</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="manifest" href="manifest.json"/>
+    <link rel="stylesheet" href="Bootstrap/bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <style>
         /* Always set the myMap height explicitly to define the size of the div
@@ -32,42 +33,51 @@ $db = getDb();
 </head>
 <body>
 <div id="map"></div>
+<table id="examencentrasTable" class="table table-stripped">
+    <thead>
+    <th>Distance</th>
+    <th>Adres</th>
+    <th>Postcode</th>
+    <th>Plaats</th>
+    <th>Tel</th>
+    <th>Openingsuren</th>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
 <?php echo '<script>var examencentras = [' . implode(",", getExamenCentras($db)) . '];</script>'; ?>
 <?php echo '<script>var examencentrasCached = [' . implode(",", getCachedExamenCentras($db)) . '];</script>'; ?>
 <script>
     $(document).ready(function () {
-        $("#btn").click(function () {
-            alert(gelukt + "/" + examencentras.length);
-        });
+
     });
 
     var gelukt = 0;
     var myMap;
+    var table;
+    var userLocation;
+    var distanceMatrix;
 
     function initMap() {
+        table = document.getElementById("examencentrasTable");
+
         myMap = new google.maps.Map(document.getElementById('map'), {
             zoom: 8
         });
 
         var geocoder = new google.maps.Geocoder();
+         distanceMatrix = new google.maps.DistanceMatrixService;
 
         if (examencentras.length > examencentrasCached.length) {
             geocodeNonCachedExamencentras(examencentras, geocoder, myMap);
-            /*examencentras.forEach(function (t) {
-                var contained = false;
-                for(var ecIndex = 0; ecIndex < examencentrasCached.length; ecIndex++){
-                    if(examencentrasCached[ecIndex][0]===t.id){
-                        contained = true;
-                        break;
-                    }
-                }
-                if(contained===false){
-                    geocodeAddress(t.address, geocoder, myMap);
-                }
-            });*/
         }
+
+        getLocation(myMap, function () {
+            fillTable(examencentrasCached);
+        });
         setCachedLocationsMarkers(examencentrasCached, myMap);
-        getLocation(myMap);
+
     }
 
     function setCachedLocationsMarkers(examencentras, resultsMap) {
@@ -107,7 +117,7 @@ $db = getDb();
             examencentra.id,
             location.lat(),
             location.lng()
-            ];
+        ];
         $.ajax({
             type: 'post',
             cache: false,
@@ -165,20 +175,70 @@ $db = getDb();
         })(marker, contentString, infowindow));
     }
 
+    function fillTable(centras) {
+        calculateDistance(centras, function (response) {
+            for(var i = 0; i < response.elements.length; i++){
+                console.log(response.elements[i].distance.text);
+                fillRow(centras[i], response.elements[i].distance.text);
+            }
+        });
+    }
+
+    function fillRow(centra, distance){
+        var row = table.insertRow(-1);
+        var distanceCell = row.insertCell(-1);
+        distanceCell.innerHTML = distance;
+        var adresCell = row.insertCell(-1);
+        adresCell.innerHTML = centra.adres;
+        var postcodeCell = row.insertCell(-1);
+        postcodeCell.innerHTML = centra.postcode;
+        var plaatsCell = row.insertCell(-1);
+        plaatsCell.innerHTML = centra.plaats;
+        var telCell = row.insertCell(-1);
+        telCell.innerHTML = centra.tel;
+        var openingCell = row.insertCell(-1);
+        openingCell.innerHTML = '<a href="' + centra.openingsuren + '">' + centra.openingsuren + '</a>';
+    }
+
+    function calculateDistance(centras, callback) {
+        var origin = new google.maps.LatLng(userLocation.lat,userLocation.lng);
+        var myDestinations = [];
+        for(var i = 0; i < centras.length; i++){
+            myDestinations.push(new google.maps.LatLng(parseFloat(centras[i].latitude),parseFloat(centras[i].longitude)));
+        }
+        distanceMatrix.getDistanceMatrix({
+                origins: [origin],
+                destinations: myDestinations,
+                travelMode: 'DRIVING',
+                unitSystem: google.maps.UnitSystem.METRIC,
+                avoidHighways: false,
+                avoidTolls: false
+            }, function (response, status) {
+                if (status !== 'OK') {
+                    console.log('Error with distance matrix: ' + status);
+                } else {
+                     callback(response.rows[0]);
+                }
+            }
+        );
+    }
+
     // region user's location
 
-    function getLocation(map) {
+    function getLocation(map, callback) {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 var pos = {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 };
+                userLocation = pos;
                 var marker = new google.maps.Marker({
                     map: map,
                     position: pos
                 });
                 map.setCenter(pos);
+                callback();
             }, function () {
                 handleLocationError(true, infoWindow, map.getCenter());
             });
