@@ -34,16 +34,16 @@
     <h1>Verkeersborden oefenexamen</h1>
     <h3>Kies je soort vragen hier </h3>
     <div id="keuze" class="text-center">
-        <a type="button" class="btn col-md-3 col-sm-12 col-xs-12" href="../StilstaanParkeren.php" >
+        <a type="button" class="btn col-md-3 col-sm-12 col-xs-12" href="StilstaanParkeren.php" >
             <span class="text-center">Stilstaan parkeren</span>
             <img src="../Afbeeldingen/Borden/Parkerentoegelaten.png" alt="Parkeren" class="img-rounded img-responsive img-borden"></a>
-        <a type="button" class="btn col-md-3 col-sm-12 col-xs-12" href="../VoorangsBordenQuiz.php" >
+        <a type="button" class="btn col-md-3 col-sm-12 col-xs-12" href="VoorangsBordenQuiz.php" >
             <span class="text-center">Voorangsborden</span>
             <img src="../Afbeeldingen/Borden/Voorrangverlenen.png" alt="Voorangsborden" class="img-rounded img-responsive img-borden"></a>
-        <a type="button" class="btn col-md-3 col-sm-12 col-xs-12" href="../AanwijzingsBordenQuiz.php" >
+        <a type="button" class="btn col-md-3 col-sm-12 col-xs-12" href="AanwijzingsBordenQuiz.php" >
             <span class="text-center">Aanwijzingsborden</span>
             <img src="../Afbeeldingen/Borden/Rechtsoflinksvoorbijrijdentoegelaten.png" alt="Aanwijzingsborden" class="img-rounded img-responsive img-borden"></a>
-        <a type="button" class="btn col-md-3 col-sm-12 col-xs-12" href="../Gebodsborden.php" >
+        <a type="button" class="btn col-md-3 col-sm-12 col-xs-12" href="Gebodsborden.php" >
             <span class="text-center">Gebodsborden</span>
             <img src="../Afbeeldingen/Borden/Verplichtrondgaandverkeer.png" alt="Gebodsborden" class="img-rounded img-responsive img-borden"></a>
     </div>

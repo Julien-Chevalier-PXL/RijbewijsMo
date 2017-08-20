@@ -48,7 +48,12 @@ $db = getDb();
 </head>
 <body>
 <!-- region navbar-->
-<?php require '../PartialViews/navbar.html'; ?>
+<?php include '../PartialViews/navbar.html' ?>
+<script>
+    $(document).ready(function () {
+        $("#Mapsli").addClass("active");
+    });
+</script>
 <!-- endregion navbar-->
 <div class="container">
     <div class="iframe-container">
@@ -81,7 +86,6 @@ $db = getDb();
 <?php echo '<script>var examencentrasCached = [' . implode(",", getCachedExamenCentras($db)) . '];</script>'; ?>
 <script>
     $(document).ready(function () {
-        $("#Mapsli").addClass("active");
         $("#distanceBtn").on('click', function () {
             sortTable(tbody, 1, true);
         });

@@ -33,15 +33,6 @@ $examencentras = getExamenCentras($db);
     <!-- endregion -->
 
     <title>ExamenCentra lijst</title>
-    <style>
-        body, h1, h2, h3, h4, h5, h6 {
-            font-family: "Montserrat", sans-serif
-        }
-
-        .w3-row-padding img {
-            margin-bottom: 12px
-        }
-    </style>
     <script src="../Javascript/sortTable.js"></script>
 </head>
 

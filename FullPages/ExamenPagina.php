@@ -23,7 +23,8 @@ if (isset($_SESSION['message'])) {
 <html>
 <head>
     <title>Examen pagina</title>
-
+    <!-- region standard head-->
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="manifest" href="../manifest.json"/>
     <!-- Bootstrap -->
@@ -41,10 +42,18 @@ if (isset($_SESSION['message'])) {
     <script src="../Bootstrap/js/bootstrap.min.js"></script>
 
     <link href="../Style.css" rel="stylesheet">
+    <!-- endregion -->
     <script src="../Javascript/QuestionsScript.js"></script>
 </head>
 <body>
-<?php require '../PartialViews/navbar.html'; ?>
+<!-- region navbar-->
+<?php include '../PartialViews/navbar.html' ?>
+<script>
+    $(document).ready(function () {
+        $("#Examenli").addClass("active");
+    });
+</script>
+<!-- endregion navbar-->
 
 <div class="container">
     <div id="startContainer" class="alert alert-info">

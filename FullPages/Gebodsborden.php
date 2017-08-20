@@ -1,8 +1,15 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: mo-bo_000
+ * Date: 11/06/2017
+ * Time: 15:07
+ */
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>WelkomPagina</title>
+    <title>Gebodsborden pagina</title>
     <!-- region standard head-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -25,41 +32,46 @@
     <!-- endregion -->
 </head>
 
+
+
 <body>
 <!-- region navbar-->
-<?php require '../PartialViews/navbar.html'; ?>
+<?php include '../PartialViews/navbar.html' ?>
 <script>
     $(document).ready(function () {
-        $("#Homeli").addClass("active");
+        $("#Bordenli").addClass("active");
     });
 </script>
 <!-- endregion navbar-->
+<div id="quizContainer" class="container">
 
-<div class="container">
-    <div class="col-md-12 jumbotron alert-success">
-        <h1>Altijd geslaagd!</h1>
-        <p>Behaal je L rijbewijs van de 1ste keer !</p>
-    </div>
-    <div class="col-md-12 jumbotron alert-info">
-        <h2>Welkom</h2>
-        <p>Mijn naam is Mohamed en ik ga je helpen slagen voor je theoretisch rijexamen. Dit
-            is het juiste (web)adres om te slagen voor jou theoretisch rijexamen</p>
-        <p>
-            Je kan kiezen om meteen te beginnen met het examen of te beginnen met verschillende borden te leren
-            kennen.
 
-            Ik wens je alvast veel succes!
-        </p>
+    <div class="title">Rijbijwijs Quiz</div>
+
+    <div id='question' class='question'></div>
+    <img style="width: 75%" src="../Afbeeldingen/Borden/Doorsteekvandemiddenberm.png" id="slideShow" name="slideShow" alt="images" width="auto" height="auto"/>
+    </br>
+    <label class="option"> <input type="radio" name="option" value="1"/> <span id="opt1"></span> </label>
+    </br>
+    <label class="option"><input type="radio" name="option" value="2"/><span id="opt2"></span> </label>
+    </br>
+    <label class="option"><input type="radio" name="option" value="3"/><span id="opt3"></span> </label>
+
+    <br/>
+    <br/>
+    <button id="nextButton"  class="next-btn" onclick="loadNextQuestion()">Volgende vraag</button>
+
+
+
+    <div id="result" class="container result" style="display:none;">
     </div>
-    <div class="col-md-12 jumbotron alert-info">
-        <h1>Start nu</h1>
-        <button class="btn btn-primary"
-                onclick="window.location='ExamenPagina.php'">Theoretisch examen
-        </button>
-        <button class="btn btn-primary"
-                onclick="window.location= 'KeuzeVerkeersborden.php'">Verkeersborden
-        </button>
-    </div>
+
 </div>
+
+<script src="../Javascript/QuestionGebodsborden.js"></script>
+<script src="../Javascript/Quiz_script-Gebodsborden.js"></script>
+
+
+
 </body>
 </html>

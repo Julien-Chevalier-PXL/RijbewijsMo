@@ -12,7 +12,6 @@ var resultElement;
 
 function startQuiz() {
     AANTAL_VRAGEN = questions.length;
-    AANTAL_VRAGEN = 10;
     questionIndex = 0;
     questionElement = $("#vraag");
     opt1 = $("#opt1");
@@ -80,9 +79,9 @@ function generateRapport() {
     }
     $("#quizContainer").addClass('hidden');
     $('#resultContainer').removeClass('hidden');
-    if (juisteAntwoorden < 2) {
+    if (juisteAntwoorden < 41) {
         $("#cijfer").addClass('alert-danger');
-    } else if (juisteAntwoorden < 3) {
+    } else if (juisteAntwoorden < 45) {
         $("#cijfer").addClass('alert-warning');
     } else {
         $("#cijfer").addClass('alert-success');
