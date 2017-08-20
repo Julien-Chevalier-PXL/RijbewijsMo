@@ -19,48 +19,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../Bootstrap/js/bootstrap.min.js"></script>
 
-    <style>
-        body, h1, h2, h3, h4, h5, h6 {
-            font-family: "Montserrat", sans-serif
-        }
-
-        .w3-row-padding img {
-            margin-bottom: 12px
-        }
-
-        #keuze {
-            text-align: center;
-        }
-
-        input {
-            height: 120px;
-            width: 200px;
-
-        }
-
-        button {
-            font-size: 18pt;
-            font-weight: bold;
-            font-family: "Arial Black"
-        }
-
-        #stiltstaanparken {
-            background-image: url("../Afbeeldingen/Borden/Parkerentoegelaten.png");
-        }
-
-        #voorangsborden {
-            background-image: url("../Afbeeldingen/Borden/Voorrangverlenen.png");
-        }
-
-        #aanwijzingsbotfen {
-            background-image: url("../Afbeeldingen/Borden/Rechtsoflinksvoorbijrijdentoegelaten.png");
-        }
-
-        #gebodborden {
-            background-image: url("../Afbeeldingen/Borden/Verplichtrondgaandverkeer.png");
-        }
-
-    </style>
+    <link href="../Style.css" rel="stylesheet">
 </head>
 <body>
 <!-- region navbar-->
@@ -71,21 +30,26 @@
     });
 </script>
 <!-- endregion navbar-->
-
-<h1>Verkeersborden oefenexamen</h1>
-<h3>Kies je soort vragen hier </h3>
-<div id="keuze">
-    <input type="button" id="stiltstaanparken" value="stiltstaanparken"
-           onclick="window.location='../StilstaanParkeren.php'"/>
-    <br/>
-    <input type="button" id="voorangsborden" value="voorangsborden" onclick="window.location='../VoorangsBordenQuiz.php'"/>
-    <br/>
-    <input type="button" id="aanwijzingsbotfen" value="aanwijzingsborden"
-           onclick="window.location='../AanwijzingsBordenQuiz.php'"/>
-    <br/>
-    <input type="button" id="gebodborden" value="gebodsborden" onclick="window.location='../Gebodsborden.php'"/>
-    <br/>
+<div class="container container well">
+    <h1>Verkeersborden oefenexamen</h1>
+    <h3>Kies je soort vragen hier </h3>
+    <div id="keuze" class="text-center">
+        <a type="button" class="btn col-md-3 col-sm-12 col-xs-12" href="../StilstaanParkeren.php" >
+            <span class="text-center">Stilstaan parkeren</span>
+            <img src="../Afbeeldingen/Borden/Parkerentoegelaten.png" alt="Parkeren" class="img-rounded img-responsive img-borden"></a>
+        <a type="button" class="btn col-md-3 col-sm-12 col-xs-12" href="../VoorangsBordenQuiz.php" >
+            <span class="text-center">Voorangsborden</span>
+            <img src="../Afbeeldingen/Borden/Voorrangverlenen.png" alt="Voorangsborden" class="img-rounded img-responsive img-borden"></a>
+        <a type="button" class="btn col-md-3 col-sm-12 col-xs-12" href="../AanwijzingsBordenQuiz.php" >
+            <span class="text-center">Aanwijzingsborden</span>
+            <img src="../Afbeeldingen/Borden/Rechtsoflinksvoorbijrijdentoegelaten.png" alt="Aanwijzingsborden" class="img-rounded img-responsive img-borden"></a>
+        <a type="button" class="btn col-md-3 col-sm-12 col-xs-12" href="../Gebodsborden.php" >
+            <span class="text-center">Gebodsborden</span>
+            <img src="../Afbeeldingen/Borden/Verplichtrondgaandverkeer.png" alt="Gebodsborden" class="img-rounded img-responsive img-borden"></a>
+    </div>
 </div>
+
+
 
 <script>
     (function (d, s, id) {
