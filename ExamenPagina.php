@@ -10,8 +10,6 @@ session_start();
 
 include 'DatabaseActions/DbConnect.php';
 include 'DatabaseActions/VragenRepository.php';
-//require 'DatabaseActions/DbConnect.php';
-//require 'DatabaseActions/VragenRepository.php';
 
 $db = getDb();
 
@@ -19,7 +17,6 @@ if (isset($_SESSION['message'])) {
     echo "<div id='error_msg'>" . $_SESSION['message'] . "</div>";
     unset($_SESSION['message']);
 }
-
 ?>
 
 <!DOCTYPE html>

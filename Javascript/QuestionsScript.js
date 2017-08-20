@@ -7,8 +7,7 @@ var imageElement;
 var answers;
 var timeLeftElement;
 var intervalId;
-//const AANTAL_VRAGEN = questions.length;
-const AANTAL_VRAGEN = 50;
+const AANTAL_VRAGEN = questions.length;
 var resultElement;
 
 function startQuiz() {
