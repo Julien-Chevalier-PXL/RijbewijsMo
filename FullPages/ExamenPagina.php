@@ -41,9 +41,11 @@ if (isset($_SESSION['message'])) {
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../Bootstrap/js/bootstrap.min.js"></script>
 
-    <link href="../Style.css" rel="stylesheet">
+    <link href="../Stylesheet/Style.css" rel="stylesheet">
     <!-- endregion -->
-    <script src="../Javascript/QuestionsScript.js"></script>
+
+    <script src="../Javascript/CommonQuestionsScript.js"></script>
+    <script src="../Javascript/ExamenScript.js"></script>
 </head>
 <body>
 <!-- region navbar-->
@@ -104,12 +106,6 @@ if (isset($_SESSION['message'])) {
 </div>
 
     <?php echo '<script>var questions = [' . implode(",", getVragen($db)) . '];</script>'; ?>
-    <script>
-        $(document).ready(function () {
-            $("#Examenli").addClass("active");
-        });
-    </script>
-
     <script>
         (function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];

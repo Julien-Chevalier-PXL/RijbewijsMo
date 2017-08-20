@@ -29,7 +29,7 @@ $examencentras = getExamenCentras($db);
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../Bootstrap/js/bootstrap.min.js"></script>
 
-    <link href="../Style.css" rel="stylesheet">
+    <link href="../Stylesheet/Style.css" rel="stylesheet">
     <!-- endregion -->
 
     <title>ExamenCentra lijst</title>

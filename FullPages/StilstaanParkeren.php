@@ -1,12 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: mo-bo_000
- * Date: 12/04/2017
- * Time: 12:08
- */
-
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,8 +20,12 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../Bootstrap/js/bootstrap.min.js"></script>
 
-    <link href="../Style.css" rel="stylesheet">
+    <link href="../Stylesheet/Style.css" rel="stylesheet">
     <!-- endregion -->
+
+    <script src="../Javascript/HardCodedQuizQuestions/QuestionStilstaan&Parkeren.js"></script>
+    <script src="../Javascript/CommonQuestionsScript.js"></script>
+    <script src="../Javascript/QuizScript.js"></script>
 </head>
 <body>
 <!-- region navbar-->
@@ -42,49 +37,50 @@
 </script>
 <!-- endregion navbar-->
 
+<div class="container">
+    <div id="startContainer" class="alert alert-info">
+        <h2>Borden quiz</h2>
+        <h3>Stilstaan parkeren</h3>
+        <p>
+            Iedere vraag moet binnen de 15 seconden moeten beaantwoord worden.
+        </p>
+        <p>
+            Indien de 15 seconden om zijn is de vraag als fout beantwoord beschoud en wordt u automatisch de volgen vraag getoond.
+        </p>
+        <h3>Succes !</h3>
+        <button class="btn btn-success btn-lg" onclick="startQuiz()">Click here om de examen te starten</button>
+    </div>
 
-<script src="../Javascript/QuestionStilstaan&Parkeren.js"></script>
-<script src="../Javascript/Quiz_script_StilstaanParkeren.js"></script>
+    <div id="quizContainer" class="hidden">
+        <div class="title">Stilstaan parkeren Quiz</div>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                <span id="qIndexProgBard"></span>
+            </div>
+        </div>
+        <div class="well">
+            <div id='vraag' class='question'></div>
+            <img class="media-object" src="../Afbeeldingen/Borden/" id="imageQuestion" name="imageQuestion" alt="images" width="250"
+                 height="250"/>
+            <br/>
+            <label class="option"><input type="radio" name="option" id="answer1" value="1"/><span id="opt1"></span></label>
+            <br/>
+            <label class="option"><input type="radio" name="option" id="answer2" value="2"/><span id="opt2"></span></label>
+            <br/>
+            <label class="option"><input type="radio" name="option" id="answer3" value="3"/><span id="opt3"></span></label>
+            <br/>
+            <button type="button" class="btn btn-info" id="quiz-time-left" style="pointer-events: none;">
+                Tijd: <span class="badge" id="time"></span> seconden
+            </button>
+            <button id="nextButton" class="btn btn-success" onclick="submitAnswer(false)">Volgende vraag</button>
+        </div>
+    </div>
 
-
-<div id="quizContainer" class="container">
-
-    <div class="title">Rijbijwijs Quiz</div>
-
-    <div id='question' class='question'></div>
-    <img src="Afbeeldingen/Borden/Verkeersborden/Stilstaan&Parkeren/Parkeerverbod van de 16e tot het einde van de maand.png"
-         id="slideShow" name="slideShow" alt="images" width="auto" height="auto"/>
-    </br>
-    <label class="option"> <input type="radio" name="option" value="1"/> <span id="opt1"></span> </label>
-    </br>
-    <label class="option"><input type="radio" name="option" value="2"/><span id="opt2"></span> </label>
-    </br>
-    <label class="option"><input type="radio" name="option" value="3"/><span id="opt3"></span> </label>
-    <br/>
-    <button id="nextButton" class="next-btn" onclick="loadNextQuestion()"> Volgende vraag</button>
-
+    <div id="resultContainer" class="container hidden">
+        <label id="cijfer" class="alert"></label>
+        <div class="panel-group" id="accordion">
+        </div>
+    </div>
 </div>
-<br/>
-
-<div id="result" class="container result" style="display:none;">
-
-</div>
-<script src="../Javascript/QuestionStilstaan&Parkeren.js"></script>
-<script src="../Javascript/Quiz_script_StilstaanParkeren.js"></script>
-
-
-<script type="text/javascript" src="../Javascript/jquery.js"></script>
-<script>
-    // Open and close sidebar
-    function openNav() {
-        document.getElementById("mySidebar").style.width = "60%";
-        document.getElementById("mySidebar").style.display = "block";
-    }
-
-    function closeNav() {
-        document.getElementById("mySidebar").style.display = "none";
-    }
-</script>
-
 </body>
 </html>

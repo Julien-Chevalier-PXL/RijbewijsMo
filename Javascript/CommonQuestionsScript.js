@@ -36,7 +36,8 @@ function loadNextQuestion() {
     if (currentQuestion.optie3 !== "") {
         opt3.html(currentQuestion.optie3);
     }
-    imageElement.attr("src", "Afbeeldingen/" + (currentQuestion.afbeelding).toUpperCase());
+    setRadioBtnValues(currentQuestion);
+    imageElement.attr("src", getImageSrc(currentQuestion.afbeelding));
     $('#nextButton').removeClass('disabled');
     startTimer();
 }
@@ -63,15 +64,13 @@ function submitAnswer(overtime) {
 
 function generateRapport() {
     var juisteAntwoorden = 0;
-    var timeOut = false;
 
     for (var i = 0; i < AANTAL_VRAGEN; i++) {
         var q = questions[i];
         var userAnswer = answers[i];
         var realAnswer = q.antwoord;
-        timeOut = false;
 
-        if (userAnswer === realAnswer) {
+        if (isRightAnswer(userAnswer, realAnswer)) {
             juisteAntwoorden++;
         } else {
             showGoodAnswer(q, userAnswer, i);
@@ -105,31 +104,13 @@ function showGoodAnswer(question, userAnswer, qId) {
     panelBody = '<div id="collapse' + qId + '" class="panel-collapse collapse">' +
         '<div class="panel-body">' +
         '<label class="question">' + question.vraag + '</label><br />' +
-        '<img class="media-object" src="Afbeeldingen/' + question.afbeelding + '" name="imageQuestion" alt="images" width="250" height="250"/><br />' +
-        '<label class="alert alert-danger">Uw antwoord: ' + getTextFromOptionNr(question, userAnswer) + '</label><br />' +
-        '<label class="alert alert-success">De juiste antwoord: ' + getTextFromOptionNr(question, question.antwoord) + '</label><br />' +
-        '<label class="alert alert-info">' + question.uitleg + '</label>' +
+        '<img class="media-object" src="' + getImageSrc(question.afbeelding) + '" name="imageQuestion" alt="images" width="250" height="250"/><br />' +
+        '<label class="alert alert-danger">Uw antwoord: ' + showUserAnswer(question, userAnswer) + '</label><br />' +
+        '<label class="alert alert-success">De juiste antwoord: ' + showQuestionAnswer(question, question.antwoord) + '</label><br />' +
+        getUitleg(question) +
         '</div></div>';
     accordionElement = $("#accordion");
     accordionElement.append('<div class="panel panel-default">' + panelHeading + panelBody + '</div>');
-}
-
-function getTextFromOptionNr(question, optionNr) {
-    var optionText = "";
-    switch (optionNr) {
-        case "1":
-            optionText = question.optie1;
-            break;
-        case "2":
-            optionText = question.optie2;
-            break;
-        case "3":
-            optionText = question.optie3;
-            break;
-        default:
-            optionText = "Geen antwoord";
-    }
-    return optionText;
 }
 
 function randomizeOrderQuestions() {
