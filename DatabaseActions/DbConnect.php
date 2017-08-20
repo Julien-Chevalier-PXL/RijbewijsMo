@@ -2,10 +2,10 @@
 
 function getDb(){
     //connect to online database
-    //$db=mysqli_connect("localhost","id993722_root","admin","id993722_rijbewijs");
+    $db=mysqli_connect("sql11.freemysqlhosting.net","sql11179363","kgKMlhMgp9","sql11179363");
 
     // connect to local database
-    $db=mysqli_connect("localhost","root","","mi4rijbewijs");
+    //$db=mysqli_connect("localhost","root","","mi4rijbewijs");
 
     if($db)
     {
