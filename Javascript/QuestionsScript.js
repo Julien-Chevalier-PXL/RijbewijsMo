@@ -7,10 +7,11 @@ var imageElement;
 var answers;
 var timeLeftElement;
 var intervalId;
-const AANTAL_VRAGEN = questions.length;
+var AANTAL_VRAGEN;
 var resultElement;
 
 function startQuiz() {
+    AANTAL_VRAGEN  = questions.length;
     questionIndex = 0;
     questionElement = $("#vraag");
     opt1 = $("#opt1");

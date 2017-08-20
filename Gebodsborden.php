@@ -32,8 +32,8 @@
         <i class="fa fa-remove"></i>
     </a>
     <div class="w3-bar-block w3-center">
-        <a href="WelkomPagina.html"><h4>Welkom</h4></a>
-        <a href="keuzeverkeersborden.html"><h2>Keuze verkeersborden</h2></a>
+        <a href="WelkomPagina.php"><h4>Welkom</h4></a>
+        <a href="KeuzeVerkeersborden.php"><h2>Keuze verkeersborden</h2></a>
         <a href="ExamenCentraLijst.php">ExamenCentrum</a>
         <a href="ExamenCentraKaart.php" class="fa fa-map-marker fa-fw w3-xxlarge w3-margin-right">Maps</a>
         <br/>

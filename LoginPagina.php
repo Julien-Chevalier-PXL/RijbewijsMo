@@ -24,7 +24,7 @@ if (isset($_GET['login_btn'])) {
     if ($result['Paswoord'] == $Paswoord) {
         $_SESSION['message'] = "You are now Loggged In";
         $_SESSION['username'] = $username;
-        header("location:WelkomPagina.html");
+        header("location:WelkomPagina.php");
     } else {
         $_SESSION['message'] = "username and password combiation incorrect";
     }
@@ -159,7 +159,7 @@ if (isset($_SESSION['message'])) {
                     <a href="RegistreerPagina.php">Registreren</a>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4  col-xs-5 ">
-                    <a href="WelkomPagina.html" class=" btn btn-default submit-btn">Verzenden<span
+                    <a href="WelkomPagina.php" class=" btn btn-default submit-btn">Verzenden<span
                                 class="glyphicon glyphicon-log-in"></span> </a>
                 </div>
             </div>
@@ -185,13 +185,13 @@ if (isset($_SESSION['message'])) {
             });
             FB.getLoginStatus(function (response) {
                 if (response.status === 'connected') {
-                    window.location.href = "WelkomPagina.html";
+                    window.location.href = "WelkomPagina.php";
                 }
             });
         });
         FB.getLoginStatus(function (response) {
             if (response.status === 'connected') {
-                window.location.href = "WelkomPagina.html";
+                window.location.href = "WelkomPagina.php";
             }
         });
     };

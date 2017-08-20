@@ -13,8 +13,19 @@ $db = getDb();
     <title>ExamenCentraKaartVL</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="manifest" href="manifest.json"/>
-    <link rel="stylesheet" href="Bootstrap/bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css"/>
+    <!-- Bootstrap -->
+    <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="Bootstrap/js/bootstrap.min.js"></script>
     <style>
         /* Always set the myMap height explicitly to define the size of the div
          * element that contains the myMap. */
@@ -32,6 +43,14 @@ $db = getDb();
     </style>
 </head>
 <body>
+<!-- region navbar-->
+<?php include 'navbar.html' ?>
+<script>
+    $(document).ready(function () {
+        $("#Mapsli").addClass("active");
+    });
+</script>
+<!-- endregion navbar-->
 <div id="map"></div>
 <table id="examencentrasTable" class="table table-stripped">
     <thead>
