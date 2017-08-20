@@ -1,16 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mo-bo_000
- * Date: 04/04/2017
- * Time: 14:20
- */
-
-
 session_start();
 //connect to database
-//$db=mysqli_connect("localhost","root","","mi4rijbewijs");
-$db = mysqli_connect("localhost", "id993722_mohamedbouzouf", "rijbewijs", "id993722_mi4rijbewijs");
+include './DatabaseActions/DbConnect.php';
+$db = getDb();
 
 if (isset($_GET['login_btn'])) {
     //$username=mysql_real_escape_string($_POST['username']);
@@ -39,20 +31,32 @@ if (isset($_SESSION['message'])) {
 <html>
 <head>
     <title>LoginPagina</title>
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <script src="../Script/jquery-3.2.1.min.js"></script>
-    <link rel="manifest" href="manifest.json"/>
-    <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
-    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- region standard head-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="manifest" href="./manifest.json"/>
+    <!-- Bootstrap -->
+    <link href="./Bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="./Bootstrap/js/bootstrap.min.js"></script>
+
+    <link href="./Stylesheet/Style.css" rel="stylesheet">
+    <!-- endregion -->
     <style>
         body, h1, h2, h3, h4, h5, h6 {
             font-family: "Montserrat", sans-serif
@@ -72,7 +76,7 @@ if (isset($_SESSION['message'])) {
         .loginbox {
             background: white;
             color: black;
-            margin-top: 30%;
+            margin-top: 5%;
             left: 0;
             padding: 20px;
             box-shadow: 0 8px 50px -2px #000;
@@ -122,21 +126,16 @@ if (isset($_SESSION['message'])) {
     </style>
 </head>
 <body>
-<div class="header">
-    <h1>Theoretisch rijbewijs behalen </h1>
-</div>
-
 <div class="login2background">
-    <div class="container">
-        <div class="col-lg-6 col-md-6 col-sm-8  loginbox">
+    <div class="container well">
+        <h1>Theoretisch rijbewijs behalen</h1>
+        <div class="col-lg-6 col-md-6 col-sm-8 loginbox">
             <div class=" row">
-
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  ">
                     <span class="singtext">Log in </span>
                 </div>
-
             </div>
-            <div class=" row loginbox_content ">
+            <div class="row loginbox_content ">
                 <div class="input-group input-group-sm">
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-user"></span>
@@ -150,18 +149,20 @@ if (isset($_SESSION['message'])) {
                         </span>
                     <input class="form-control" type="password" placeholder="Passwoord">
                 </div>
-                <div class="fb-login-button" data-max-rows="2" data-size="large" data-button-type="continue_with"
-                     data-show-faces="true"
-                     data-auto-logout-link="true" data-use-continue-as="true"></div>
             </div>
-            <div class="row ">
+            <div class="row">
                 <div class="col-lg-8 col-md-8  col-sm-8 col-xs-7 forgotpassword ">
                     <a href="RegistreerPagina.php">Registreren</a>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4  col-xs-5 ">
-                    <a href="FullPages/WelkomPagina.php" class=" btn btn-default submit-btn">Verzenden<span
+                    <a href="FullPages/WelkomPagina.php" class=" btn btn-default submit-btn">Log in<span
                                 class="glyphicon glyphicon-log-in"></span> </a>
                 </div>
+            </div>
+            <div class="row loginbox_content">
+                <div class="fb-login-button" data-max-rows="2" data-size="large" data-button-type="continue_with"
+                     data-show-faces="true"
+                     data-auto-logout-link="true" data-use-continue-as="true"></div>
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-4 "></div>

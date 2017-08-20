@@ -1,17 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mo-bo_000
- * Date: 27/03/2017
- * Time: 15:58
- */
 session_start();
 //connect to database
-//$db=mysqli_connect("localhost","id993722_mohamedbouzouf","rijbewijs","id993722_mi4rijbewijs");
-//$dn=mysqli_connect("localhost","id993722_mohamedbouzouf","rijbewijs","id993722_mi4rijbewijs");
-$db=mysqli_connect("localhost","root","","mi4rijbewijs");
-
-//$db=mysqli_connect("sql11.freemysqlhosting.net","sql11168139	","1Rt1bfRWrz","sql11168139");
+include './DatabaseActions/DbConnect.php';
+$db = getDb();
 
 if(isset($_GET['register_btn']))
 {
@@ -37,32 +28,39 @@ if(isset($_GET['register_btn']))
     }
 }
 ?>
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>RijbewijsL</title>
-    <link rel="stylesheet" type="text/css" href="StylerRegistratie.css"/>
-
+    <title>Register</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <script src="../Script/jquery-3.2.1.min.js"></script>
-    <link rel="manifest"href="manifest.json"/>
-    <script type="text/javascript" src="bootstrap/bootstrap.js"></script>
-    <script type="text/javascript" src="bootstrap/bootstrap.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- region standard head-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="manifest" href="./manifest.json"/>
+    <!-- Bootstrap -->
+    <link href="./Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="./Bootstrap/js/bootstrap.min.js"></script>
+
+    <link href="./Stylesheet/Style.css" rel="stylesheet">
+    <!-- endregion -->
+
 </head>
 <body>
-<div class="header">
-    <h1>Theoretisch rijbewijs behalen</h1>
-</div>
 <?php
 if(isset($_SESSION['message']))
 {
@@ -70,9 +68,8 @@ if(isset($_SESSION['message']))
     unset($_SESSION['message']);
 }
 ?>
-
-
-<div class="container">
+<div class="container well">
+    <h1>Theoretisch rijbewijs behalen</h1>
     <div class="row main">
         <div class="main-login main-center">
             <h5>Slaag van de 1ste X op je theoretische rijexamen, door je registreren.</h5>

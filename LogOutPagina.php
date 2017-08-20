@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Log out</title>
 </head>
 <body>
 <script type="text/javascript">
@@ -40,13 +40,6 @@
 
 </script>
 <?php
-/**
- * Created by PhpStorm.
- * User: mo-bo_000
- * Date: 27/03/2017
- * Time: 16:00
- */
-
 session_start();
 session_destroy();
 unset($_SESSION['username']);
