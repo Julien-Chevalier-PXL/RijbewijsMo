@@ -23,7 +23,6 @@
         });
         FB.getLoginStatus(function(response) {
                 FB.logout(function(response) {
-                    
                     window.location.href = "LoginPagina.php";
                 });
         });
