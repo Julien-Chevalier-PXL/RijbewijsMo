@@ -119,7 +119,7 @@ if(isset($_SESSION['message']))
                 </div>
 
                 <div class="form-group ">
-                    <a href="WelkomPagina.php" type="button" id="button" class="btn btn-primary btn-lg btn-block login-button">Register</a>
+                    <a href="FullPages/WelkomPagina.php" type="button" id="button" class="btn btn-primary btn-lg btn-block login-button">Register</a>
                 </div>
 
             </form>

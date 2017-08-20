@@ -159,7 +159,7 @@ if (isset($_SESSION['message'])) {
                     <a href="RegistreerPagina.php">Registreren</a>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4  col-xs-5 ">
-                    <a href="WelkomPagina.php" class=" btn btn-default submit-btn">Verzenden<span
+                    <a href="FullPages/WelkomPagina.php" class=" btn btn-default submit-btn">Verzenden<span
                                 class="glyphicon glyphicon-log-in"></span> </a>
                 </div>
             </div>
@@ -185,13 +185,13 @@ if (isset($_SESSION['message'])) {
             });
             FB.getLoginStatus(function (response) {
                 if (response.status === 'connected') {
-                    window.location.href = "WelkomPagina.php";
+                    window.location.href = "FullPages/WelkomPagina.php";
                 }
             });
         });
         FB.getLoginStatus(function (response) {
             if (response.status === 'connected') {
-                window.location.href = "WelkomPagina.php";
+                window.location.href = "FullPages/WelkomPagina.php";
             }
         });
     };

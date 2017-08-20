@@ -11,7 +11,8 @@ var AANTAL_VRAGEN;
 var resultElement;
 
 function startQuiz() {
-    AANTAL_VRAGEN  = questions.length;
+    AANTAL_VRAGEN = questions.length;
+    AANTAL_VRAGEN = 10;
     questionIndex = 0;
     questionElement = $("#vraag");
     opt1 = $("#opt1");
@@ -20,40 +21,42 @@ function startQuiz() {
     imageElement = $("#imageQuestion");
     answers = new Array();
     timeLeftElement = $("#quiz-time-left");
+
+    $("#quizContainer").removeClass('hidden');
+    $("#startContainer").addClass('hidden');
     randomizeOrderQuestions();
     loadNextQuestion();
 }
 
 function loadNextQuestion() {
+    updateProgressbar();
     var currentQuestion = questions[questionIndex];
     questionElement.html(String(questionIndex + 1) + '. ' + currentQuestion.vraag);
     opt1.html(currentQuestion.optie1);
     opt2.html(currentQuestion.optie2);
-    if (currentQuestion.optie3 !== "")
-    {
+    if (currentQuestion.optie3 !== "") {
         opt3.html(currentQuestion.optie3);
     }
     imageElement.attr("src", "Afbeeldingen/" + (currentQuestion.afbeelding).toUpperCase());
+    $('#nextButton').removeClass('disabled');
     startTimer();
 }
 
 function submitAnswer(overtime) {
     endTimer();
     var selectedOption;
-    if(overtime!==true){
+    if (overtime !== true) {
         selectedOption = $("input:checked").val();
         document.querySelector('input[type=radio]:checked').checked = false;
-        //$("input:checked").prop('checked', false);
-    }else{
+    } else {
         selectedOption = 0;
     }
     answers[questionIndex] = selectedOption;
-    if(questionIndex < AANTAL_VRAGEN - 1){
-        if(questionIndex === AANTAL_VRAGEN - 1) $("#nextButton").html("End exam");
-
+    if (questionIndex < AANTAL_VRAGEN - 1) {
+        if (questionIndex === AANTAL_VRAGEN - 1) $("#nextButton").html("End exam");
         questionIndex++;
         loadNextQuestion();
-    }else{
+    } else {
         generateRapport();
     }
 
@@ -63,37 +66,58 @@ function generateRapport() {
     var juisteAntwoorden = 0;
     var timeOut = false;
 
-    for(var i = 0; i < AANTAL_VRAGEN; i++){
+    for (var i = 0; i < AANTAL_VRAGEN; i++) {
         var q = questions[i];
         var userAnswer = answers[i];
         var realAnswer = q.antwoord;
         timeOut = false;
 
-        if(userAnswer===realAnswer){
+        if (userAnswer === realAnswer) {
             juisteAntwoorden++;
-        }else{
-            showGoodAnswer(q, userAnswer);
+        } else {
+            showGoodAnswer(q, userAnswer, i);
         }
+    }
+    $("#quizContainer").addClass('hidden');
+    $('#resultContainer').removeClass('hidden');
+    if (juisteAntwoorden < 2) {
+        $("#cijfer").addClass('alert-danger');
+    } else if (juisteAntwoorden < 3) {
+        $("#cijfer").addClass('alert-warning');
+    } else {
+        $("#cijfer").addClass('alert-success');
     }
     $("#cijfer").html("Je hebt " + juisteAntwoorden + " van de " + AANTAL_VRAGEN + " vragen juist!");
 }
 
-function showGoodAnswer(question, userAnswer) {
-    $("#quizContainer").css("display", "none");
-    resultElement = $("#result");
-    resultElement.css("display", "block");
-    resultElement.append('<div class="bad-answer-div">');
-    resultElement.append('<label class="question">' + question.vraag + '</label><br />');
-    resultElement.append('<img src="Afbeeldingen/' + question.afbeelding +'" name="imageQuestion" alt="images" width="250" height="250"/><br />');
-    resultElement.append('<label class="bad-answer-option">Uw antwoord: '+ getTextFromOptionNr(question, userAnswer) +'</label><br />');
-    resultElement.append('<label class="good-answer-option">De juiste antwoord: '+ getTextFromOptionNr(question, question.antwoord) +'</label><br />');
-    resultElement.append('<label class="explanation">' + question.uitleg +'</label><br />');
-    resultElement.append('</div><br />');
+function updateProgressbar() {
+    var percentageQuestion = (questionIndex + 1) * 100 / AANTAL_VRAGEN;
+    $('.progress-bar').css('width', percentageQuestion + '%').attr('aria-valuenow', percentageQuestion);
+    $('#qIndexProgBard').html(questionIndex + 1 + "/" + AANTAL_VRAGEN);
 }
 
-function getTextFromOptionNr(question, optionNr){
+function showGoodAnswer(question, userAnswer, qId) {
+    var panelHeading;
+    panelHeading = '<div class="panel-heading" id="heading' + qId + '">' +
+        '<h4 class="panel-title">' +
+        '<a role="button" data-toggle="collapse" data-parent="#accordion"' +
+        ' href="#collapse' + qId + '">' + question.vraag + '</a>' + '</h4></div>';
+    var panelBody;
+    panelBody = '<div id="collapse' + qId + '" class="panel-collapse collapse">' +
+        '<div class="panel-body">' +
+        '<label class="question">' + question.vraag + '</label><br />' +
+        '<img class="media-object" src="Afbeeldingen/' + question.afbeelding + '" name="imageQuestion" alt="images" width="250" height="250"/><br />' +
+        '<label class="alert alert-danger">Uw antwoord: ' + getTextFromOptionNr(question, userAnswer) + '</label><br />' +
+        '<label class="alert alert-success">De juiste antwoord: ' + getTextFromOptionNr(question, question.antwoord) + '</label><br />' +
+        '<label class="alert alert-info">' + question.uitleg + '</label>' +
+        '</div></div>';
+    accordionElement = $("#accordion");
+    accordionElement.append('<div class="panel panel-default">' + panelHeading + panelBody + '</div>');
+}
+
+function getTextFromOptionNr(question, optionNr) {
     var optionText = "";
-    switch(optionNr){
+    switch (optionNr) {
         case "1":
             optionText = question.optie1;
             break;
@@ -127,17 +151,27 @@ function randomizeOrderQuestions() {
 
     function startTimer() {
         counter = MAX_TIME_COUNTER;
-        timeLeftElement.html('Tijd: ' + counter.toString() + ' seconden');
+        timeLeftElement.html('Tijd: <span class="badge" id="time"></span> seconden');
+        $("#time").html(counter.toString());
+        timeLeftElement.removeClass('btn-warning');
+        timeLeftElement.removeClass('btn-danger');
+        timeLeftElement.addClass('btn-info');
         intervalId = setInterval(actionTimer, 1000);
     }
 
     function actionTimer() {
         counter--;
         if (counter > MIN_TIME_COUNTER) {
-            timeLeftElement.html('Tijd: ' + counter.toString() + ' seconden');
+            $("#time").html(counter.toString());
+            if (counter <= ((MAX_TIME_COUNTER / 2) - 1)) {
+                timeLeftElement.addClass('btn-warning');
+            }
+        } else if (counter === MIN_TIME_COUNTER) {
+            timeLeftElement.html('Tijd is over.');
+            timeLeftElement.addClass('btn-danger');
+            $('#nextButton').addClass('disabled');
         } else {
             // what happened when timer is ended ?!
-            timeLeftElement.html('Tijd is over.');
             submitAnswer(true);
         }
     }

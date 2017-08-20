@@ -1,20 +1,20 @@
 <?php
 
-include 'DatabaseActions/DbConnect.php';
-include 'DatabaseActions/ExamencentraRepository.php';
-include 'DatabaseActions/CentraLocationsCacheRepository.php';
+include '../DatabaseActions/DbConnect.php';
+include '../DatabaseActions/ExamencentraRepository.php';
+include '../DatabaseActions/CentraLocationsCacheRepository.php';
 
 $db = getDb();
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- region standard head-->
     <meta charset="UTF-8">
-    <title>ExamenCentraKaartVL</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="manifest" href="manifest.json"/>
+    <link rel="manifest" href="../manifest.json"/>
     <!-- Bootstrap -->
-    <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../Bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,13 +25,16 @@ $db = getDb();
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="Bootstrap/js/bootstrap.min.js"></script>
+    <script src="../Bootstrap/js/bootstrap.min.js"></script>
+
+    <link href="../Style.css" rel="stylesheet">
+    <!-- endregion -->
+
+    <title>Examencentra Vlanderen map</title>
     <style>
         /* Always set the myMap height explicitly to define the size of the div
          * element that contains the myMap. */
         #map {
-            height: 75%;
-            width: 75%;
         }
 
         /* Optional: Makes the sample page fill the window. */
@@ -41,52 +44,70 @@ $db = getDb();
             padding: 0;
         }
     </style>
+    <script src="../Javascript/sortTable.js"></script>
 </head>
 <body>
 <!-- region navbar-->
-<?php include 'navbar.html' ?>
-<script>
-    $(document).ready(function () {
-        $("#Mapsli").addClass("active");
-    });
-</script>
+<?php require '../PartialViews/navbar.html'; ?>
 <!-- endregion navbar-->
-<div id="map"></div>
-<table id="examencentrasTable" class="table table-stripped">
-    <thead>
-    <th>Distance</th>
-    <th>Adres</th>
-    <th>Postcode</th>
-    <th>Plaats</th>
-    <th>Tel</th>
-    <th>Openingsuren</th>
-    </thead>
-    <tbody>
+<div class="container">
+    <div class="iframe-container">
+        <div id="map">
+        </div>
+    </div>
+    <div class="row">
+        <table id="examencentrasTable" class="table table-striped">
+            <thead>
+            <th>
+                <button class="btn btn-info" id="distanceBtn">Distance</button>
+            </th>
+            <th>Adres</th>
+            <th>
+                <button class="btn btn-info" id="postcodeBtn">Postcode</button>
+            </th>
+            <th>
+                <button class="btn btn-info" id="plaatsBtn">Plaats</button>
+            </th>
+            <th>Tel</th>
+            <th>Openingsuren</th>
+            </thead>
+            <tbody id="examencentraTblTb">
+            </tbody>
+        </table>
+    </div>
+</div>
 
-    </tbody>
-</table>
 <?php echo '<script>var examencentras = [' . implode(",", getExamenCentras($db)) . '];</script>'; ?>
 <?php echo '<script>var examencentrasCached = [' . implode(",", getCachedExamenCentras($db)) . '];</script>'; ?>
 <script>
     $(document).ready(function () {
-
+        $("#Mapsli").addClass("active");
+        $("#distanceBtn").on('click', function () {
+            sortTable(tbody, 1, true);
+        });
+        $("#postcodeBtn").on('click', function () {
+            sortTable(tbody, 3, true);
+        });
+        $("#plaatsBtn").on('click', function () {
+            sortTable(tbody, 4, false)
+        });
     });
 
     var gelukt = 0;
     var myMap;
-    var table;
+    var tbody;
     var userLocation;
     var distanceMatrix;
 
     function initMap() {
-        table = document.getElementById("examencentrasTable");
+        tbody = document.getElementById("examencentraTblTb");
 
         myMap = new google.maps.Map(document.getElementById('map'), {
             zoom: 8
         });
 
         var geocoder = new google.maps.Geocoder();
-         distanceMatrix = new google.maps.DistanceMatrixService;
+        distanceMatrix = new google.maps.DistanceMatrixService;
 
         if (examencentras.length > examencentrasCached.length) {
             geocodeNonCachedExamencentras(examencentras, geocoder, myMap);
@@ -106,6 +127,7 @@ $db = getDb();
         }
     }
 
+    // region non cached locations
     function geocodeNonCachedExamencentras(examencentras, geocoder, resultsMap) {
         for (var index = 0; index < examencentras.length; index++) { // foreach werkt niet, don't know why
             var examencentra = examencentras[index];
@@ -151,8 +173,10 @@ $db = getDb();
         });
     }
 
+    // endregion
+
     function setMarker(centra) {
-        var iconBase = './Afbeeldingen/Logo/';
+        var iconBase = '../Afbeeldingen/Logo/';
         var image = {
             url: iconBase + 'centra_logo.png',
             scaledSize: new google.maps.Size(20, 25)
@@ -194,36 +218,39 @@ $db = getDb();
         })(marker, contentString, infowindow));
     }
 
+    // region tbody
+
     function fillTable(centras) {
         calculateDistance(centras, function (response) {
-            for(var i = 0; i < response.elements.length; i++){
-                console.log(response.elements[i].distance.text);
+            for (var i = 0; i < response.elements.length; i++) {
                 fillRow(centras[i], response.elements[i].distance.text);
             }
         });
     }
 
-    function fillRow(centra, distance){
-        var row = table.insertRow(-1);
+    function fillRow(centra, distance) {
+        var row = tbody.insertRow(-1);
         var distanceCell = row.insertCell(-1);
         distanceCell.innerHTML = distance;
         var adresCell = row.insertCell(-1);
-        adresCell.innerHTML = centra.adres;
+        adresCell.innerHTML = centra.adres.trim();
         var postcodeCell = row.insertCell(-1);
-        postcodeCell.innerHTML = centra.postcode;
+        postcodeCell.innerHTML = centra.postcode.trim();
         var plaatsCell = row.insertCell(-1);
-        plaatsCell.innerHTML = centra.plaats;
+        plaatsCell.innerHTML = centra.plaats.trim();
         var telCell = row.insertCell(-1);
-        telCell.innerHTML = centra.tel;
+        telCell.innerHTML = centra.tel.trim();
         var openingCell = row.insertCell(-1);
         openingCell.innerHTML = '<a href="' + centra.openingsuren + '">' + centra.openingsuren + '</a>';
     }
 
+    // endregion
+
     function calculateDistance(centras, callback) {
-        var origin = new google.maps.LatLng(userLocation.lat,userLocation.lng);
+        var origin = new google.maps.LatLng(userLocation.lat, userLocation.lng);
         var myDestinations = [];
-        for(var i = 0; i < centras.length; i++){
-            myDestinations.push(new google.maps.LatLng(parseFloat(centras[i].latitude),parseFloat(centras[i].longitude)));
+        for (var i = 0; i < centras.length; i++) {
+            myDestinations.push(new google.maps.LatLng(parseFloat(centras[i].latitude), parseFloat(centras[i].longitude)));
         }
         distanceMatrix.getDistanceMatrix({
                 origins: [origin],
@@ -236,7 +263,7 @@ $db = getDb();
                 if (status !== 'OK') {
                     console.log('Error with distance matrix: ' + status);
                 } else {
-                     callback(response.rows[0]);
+                    callback(response.rows[0]);
                 }
             }
         );

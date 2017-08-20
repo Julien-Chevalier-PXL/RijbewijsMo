@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>Keuze verkeersborden</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="manifest" href="manifest.json"/>
+    <link rel="manifest" href="../manifest.json"/>
     <!-- Bootstrap -->
-    <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../Bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -17,7 +17,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="Bootstrap/js/bootstrap.min.js"></script>
+    <script src="../Bootstrap/js/bootstrap.min.js"></script>
 
     <style>
         body, h1, h2, h3, h4, h5, h6 {
@@ -45,26 +45,26 @@
         }
 
         #stiltstaanparken {
-            background-image: url("Afbeeldingen/Borden/Parkerentoegelaten.png");
+            background-image: url("../Afbeeldingen/Borden/Parkerentoegelaten.png");
         }
 
         #voorangsborden {
-            background-image: url("Afbeeldingen/Borden/Voorrangverlenen.png");
+            background-image: url("../Afbeeldingen/Borden/Voorrangverlenen.png");
         }
 
         #aanwijzingsbotfen {
-            background-image: url("Afbeeldingen/Borden/Rechtsoflinksvoorbijrijdentoegelaten.png");
+            background-image: url("../Afbeeldingen/Borden/Rechtsoflinksvoorbijrijdentoegelaten.png");
         }
 
         #gebodborden {
-            background-image: url("Afbeeldingen/Borden/Verplichtrondgaandverkeer.png");
+            background-image: url("../Afbeeldingen/Borden/Verplichtrondgaandverkeer.png");
         }
 
     </style>
 </head>
 <body>
 <!-- region navbar-->
-<?php include 'navbar.html' ?>
+<?php include '../PartialViews/navbar.html' ?>
 <script>
     $(document).ready(function () {
         $("#Bordenli").addClass("active");
@@ -76,14 +76,14 @@
 <h3>Kies je soort vragen hier </h3>
 <div id="keuze">
     <input type="button" id="stiltstaanparken" value="stiltstaanparken"
-           onclick="window.location='StilstaanParkeren.php'"/>
+           onclick="window.location='../StilstaanParkeren.php'"/>
     <br/>
-    <input type="button" id="voorangsborden" value="voorangsborden" onclick="window.location='VoorangsBordenQuiz.php'"/>
+    <input type="button" id="voorangsborden" value="voorangsborden" onclick="window.location='../VoorangsBordenQuiz.php'"/>
     <br/>
     <input type="button" id="aanwijzingsbotfen" value="aanwijzingsborden"
-           onclick="window.location='AanwijzingsBordenQuiz.php'"/>
+           onclick="window.location='../AanwijzingsBordenQuiz.php'"/>
     <br/>
-    <input type="button" id="gebodborden" value="gebodsborden" onclick="window.location='Gebodsborden.php'"/>
+    <input type="button" id="gebodborden" value="gebodsborden" onclick="window.location='../Gebodsborden.php'"/>
     <br/>
 </div>
 
@@ -97,7 +97,7 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
 
-<script type="text/javascript" src="Javascript/jquery.js"></script>
+<script type="text/javascript" src="../Javascript/jquery.js"></script>
 <script>
     // Open and close sidebar
     function openNav() {
