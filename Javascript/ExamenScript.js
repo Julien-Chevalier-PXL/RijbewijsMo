@@ -9,11 +9,11 @@ function isRightAnswer(userAnswer, realAnswer){
 }
 
 function showUserAnswer(question, userAnswer){
-    getTextFromOptionNr(question, userAnswer);
+    return getTextFromOptionNr(question, userAnswer);
 }
 
 function showQuestionAnswer(question, antwoord){
-    getTextFromOptionNr(question, antwoord)
+    return getTextFromOptionNr(question, antwoord);
 }
 
 function getTextFromOptionNr(question, optionNr) {
