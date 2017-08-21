@@ -12,7 +12,7 @@ var questions = [
     },
     {
         "vraag": "Deze verkeersbord betekent ?",
-        "afbeelding": "afb/Rijstrookvoorbehoudenvoorautobussen.png",
+        "afbeelding": "/Borden/Rijstrookvoorbehoudenvoorautobussen.png",
         "optie1": "Rijstrook voorbeboud voor voertuigen met de nummerplaat BUS",
         "optie2": "Rijstrook voorbehouden voor alle voertuigen behalve bussen",
         "optie3": "Rijstrook voorbehouden voor autobussen",
@@ -20,7 +20,7 @@ var questions = [
     },
     {
         "vraag": "Deze verkeersbord betekent ?",
-        "afbeelding": "afb/Autosnelweg.png",
+        "afbeelding": "/Borden/Autosnelweg.png",
         "optie1": "Geeft  het begin van een huisadres aan",
         "optie2": "Naam van een wijk ",
         "optie3": "Naam van een autosnelweg",
@@ -29,7 +29,7 @@ var questions = [
     {
 
         "vraag": "Deze verkeersbord betekent ?",
-        "afbeelding": "afb/Oversteekplaatsvoorvoetganges.png",
+        "afbeelding": "/Borden/Oversteekplaatsvoorvoetganges.png",
         "optie1": "Gevaar op voetgangers",
         "optie2": "Oversteekplaats voor voetgangers",
         "optie3": "Voortuigen hebben voorrang op voetgangers",
@@ -37,7 +37,7 @@ var questions = [
     },
     {
         "vraag": "Deze verkeersbord betekent ?",
-        "afbeelding": "afb/Rechtsoflinksvoorbijrijdentoegelaten.png",
+        "afbeelding": "/Borden/Rechtsoflinksvoorbijrijdentoegelaten.png",
         "optie1": "Parkeerverbod vanaf de 16e tot het einde van de maaand",
         "optie2": "Parkeren toegelaten vanaf de 16e tot het einde van de maaand.",
         "optie3": "ik weet het niet",
@@ -45,7 +45,7 @@ var questions = [
     },
     {
         "vraag": "Deze verkeersbord betekent ?",
-        "afbeelding": "afb/Voorwegwijzerdieeenuitwijkingaankondigt.png",
+        "afbeelding": "/Borden/Voorwegwijzerdieeenuitwijkingaankondigt.png",
         "optie1": "Zone met onebeperkt parkeertijd",
         "optie2": "Zone met beperkt parkeertijd",
         "optie3": "Beide zijn juist ",
@@ -53,7 +53,7 @@ var questions = [
     },
     {
         "vraag": "Deze verkeersbord betekent ?",
-        "afbeelding": "afb/Eindebebouwdekom.png",
+        "afbeelding": "/Borden/Eindebebouwdekom.png",
         "optie1": "Verplicht parkeren op de rijbaan",
         "optie2": "Verbod op parkeren ",
         "optie3": "Verod op stilstaan ",
@@ -61,12 +61,10 @@ var questions = [
     },
     {
         "vraag": "Deze verkeersbord betekent ?",
-        "afbeelding": "afb/Internationaleweg.png",
+        "afbeelding": "/Borden/Internationaleweg.png",
         "optie1": "Verbod op stilstaatn",
         "optie2": "Verbod op parkeren",
         "optie3": "Verbod op stilstaan & parkeren",
         "antwoord": "Verbod op stilstaan & parkeren"
-
-
     }
 ];

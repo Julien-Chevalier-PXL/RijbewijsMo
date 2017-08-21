@@ -1,5 +1,5 @@
 function getImageSrc(imageName){
-    return "../Afbeeldingen/" + imageName;
+    return "../Afbeeldingen" + imageName;
 }
 
 function setRadioBtnValues(question){
