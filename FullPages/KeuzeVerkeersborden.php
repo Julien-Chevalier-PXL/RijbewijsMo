@@ -60,18 +60,5 @@
         js.src = "//connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v2.9&appId=1741589282521605";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
-
-<script type="text/javascript" src="../Javascript/jquery.js"></script>
-<script>
-    // Open and close sidebar
-    function openNav() {
-        document.getElementById("mySidebar").style.width = "60%";
-        document.getElementById("mySidebar").style.display = "block";
-    }
-
-    function closeNav() {
-        document.getElementById("mySidebar").style.display = "none";
-    }
-</script>
 </body>
 </html>

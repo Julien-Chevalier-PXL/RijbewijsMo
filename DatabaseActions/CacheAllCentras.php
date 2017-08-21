@@ -9,7 +9,7 @@ require 'ExamencentraRepository.php';
     <meta charset="UTF-8">
     <title>ExamenCentraKaartVL</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="manifest" href="manifest.json"/>
+    <link rel="manifest" href="../manifest.json"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <style>
         /* Always set the map height explicitly to define the size of the div
@@ -83,6 +83,6 @@ require 'ExamencentraRepository.php';
     }
 </script>
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTZea67jn4YSPIGu0dNTHRyB1jnvo1Q00&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9n3H9tgUsEx7pKwLKTJYhzRirAkcBN6Y&callback=initMap">
 </script>
 </body>

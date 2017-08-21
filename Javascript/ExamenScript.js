@@ -3,9 +3,8 @@ function getImageSrc(imageName){
 }
 
 function isRightAnswer(userAnswer, realAnswer){
-    if(userAnswer === realAnswer)
-        return true;
-    return false;
+    return userAnswer === realAnswer;
+
 }
 
 function showUserAnswer(question, userAnswer){

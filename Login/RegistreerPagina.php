@@ -1,7 +1,7 @@
 <?php
 session_start();
 //connect to database
-include './DatabaseActions/DbConnect.php';
+include '../DatabaseActions/DbConnect.php';
 $db = getDb();
 
 if(isset($_GET['register_btn']))
@@ -79,8 +79,8 @@ if(isset($_SESSION['message']))
                     <label for="name" class="cols-sm-2 control-label">Naam:</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="name" id="name"  placeholder="Naam:"/>
+                            <span class="input-group-addon"><i class="fa fa-user fa"></i></span>
+                            <input class="form-control" name="name" id="name" placeholder="Naam:"/>
                         </div>
                     </div>
                 </div>
@@ -89,8 +89,8 @@ if(isset($_SESSION['message']))
                     <label for="email" class="cols-sm-2 control-label">Email:</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="email" id="email"  placeholder="Email"/>
+                            <span class="input-group-addon"><i class="fa fa-envelope fa"></i></span>
+                            <input class="form-control" name="email" id="email" placeholder="Email"/>
                         </div>
                     </div>
                 </div>
@@ -99,7 +99,7 @@ if(isset($_SESSION['message']))
                     <label for="password" class="cols-sm-2 control-label">Passwoord</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg"></i></span>
                             <input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
                         </div>
                     </div>
@@ -109,7 +109,7 @@ if(isset($_SESSION['message']))
                     <label for="confirm" class="cols-sm-2 control-label">Bevestig Password</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg"></i></span>
                             <input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Bevestig je passwoord"/>
                         </div>
                     </div>

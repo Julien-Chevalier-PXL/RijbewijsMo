@@ -1,7 +1,7 @@
 <?php
 session_start();
 //connect to database
-include './DatabaseActions/DbConnect.php';
+include '../DatabaseActions/DbConnect.php';
 $db = getDb();
 
 if (isset($_GET['login_btn'])) {
@@ -13,7 +13,7 @@ if (isset($_GET['login_btn'])) {
     $sql = "SELECT * FROM gebruikers WHERe username='$username'";
     $result = mysqli_query($db, $sql);
     $result = mysqli_fetch_assoc($result);
-    if ($result['Paswoord'] == $Paswoord) {
+    if ($result['Paswoord'] == $paswoord) {
         $_SESSION['message'] = "You are now Loggged In";
         $_SESSION['username'] = $username;
         header("location:WelkomPagina.php");

@@ -308,6 +308,6 @@ $db = getDb();
     // endregion
 </script>
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTZea67jn4YSPIGu0dNTHRyB1jnvo1Q00&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9n3H9tgUsEx7pKwLKTJYhzRirAkcBN6Y&callback=initMap">
 </script>
 </body>
